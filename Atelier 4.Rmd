@@ -1,0 +1,128 @@
+---
+title: "Atlier 4"
+author: "Jade Sauger"
+date: "13/11/2019"
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##Option 1
+
+```{r}
+nutriage <- read.csv("C:/Users/Dadoune/Downloads/Atelier4-master/Atelier4-master/nutriage.csv")
+names(nutriage)
+```
+```{r}
+hist(nutriage$taille)
+summary(nutriage$taille)
+```
+H:taille $\sim N(mu,\sigma)$ leproblème $\Pr(taille < 0) >0$
+
+```{r}
+mean(nutriage$taille)
+sd(nutriage$taille)
+```
+calculer $\PR(taille < 0)$ avec $taille \sim N(163.9602,9.003368)
+
+```{r}
+pnorm(0,mean(nutriage$taille),sd(nutriage$taille))
+```
+
+## Option 2
+
+Soit $taille = e^X$ avec $X \sim N(mu,\sigma).$ ALors $X = ln(taille).$
+
+```{r}
+x <- log(nutriage$taille)
+hist(x)
+summary(x)
+Q <- seq(from=0,to=1,by=0.1)
+Q
+qnorm(Q)
+```
+qq-plot
+```{r}
+Z <- (x-mean(x))/sd(x)
+n <- length(Z)
+n
+Normal <- rnorm(n)
+qqplot(Normal,Z,xlim=c(-3,3),ylim=c(-3,3))
+par(new=T)
+plot(Z,Z,type="l",col="red",xlim=c(-3,3),ylim=c(-3,3),xlabel="",ylabel="")
+```
+
+## Avec le poid 
+
+
+```{r}
+nutriage <- read.csv("C:/Users/Dadoune/Downloads/Atelier4-master/Atelier4-master/nutriage.csv")
+names(nutriage)
+```
+
+```{r}
+hist(nutriage$poids)
+summary(nutriage$poids)
+```
+```
+H:poids $\sim N(mu,\sigma)$ leproblème $\Pr(poids < 0) >0$
+
+```{r}
+mean(nutriage$poids)
+sd(nutriage$poids)
+```
+calculer $\PR(poids < 0)$ avec $poids \sim N(163.9602,9.003368)
+
+```{r}
+pnorm(0,mean(nutriage$poids),sd(nutriage$poids))
+```
+## Option 2
+
+Soit $poids = e^X$ avec $X \sim N(mu,\sigma).$ ALors $X = ln(poids).$
+
+```{r}
+x <- log(nutriage$poids)
+hist(x)
+summary(x)
+Q <- seq(from=0,to=1,by=0.1)
+Q
+qnorm(Q)
+```
+
+
+qq-plot
+```{r}
+Z <- (x-mean(x))/sd(x)
+n <- length(Z)
+n
+Normal <- rnorm(n)
+qqplot(Normal,Z)
+par(new=T)
+plot(Z,Z,type="l",col="red",xlim=c(-3,3),ylim=c(-3,3),xlab="",ylab="")
+```
+
+cafe
+```{r}
+table(nutriage$cafe)
+mean(nutriage$cafe)
+var(nutriage$cafe)
+lambda <- (mean(nutriage$cafe)+var(nutriage$cafe))/2
+lambda
+simul <- rpois(1000,lambda)
+table(simul)
+```
+
+
+
+
+
+
+
+
+
+
